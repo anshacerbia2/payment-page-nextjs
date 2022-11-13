@@ -1,0 +1,217 @@
+.form-part-title {
+  display: flex;
+  width: 100%;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px dotted #c3c3c3;
+}
+
+.form-part-title>div:first-child {
+  flex-grow: 1;
+  color: #06499f;
+  font-weight: 600;
+}
+
+.form-part-title>div:nth-child(2) {
+  display: flex;
+  align-items: center;
+  color: #898989;
+  font-size: 12px;
+}
+
+.form-part-title>div:nth-child(2)>span {
+  font-size: 12px;
+  margin-right: 2px;
+}
+
+div:has(> #ccNumber) {
+  align-items: center;
+}
+
+#ccNumber {
+  width: 100%;
+  margin-right: 12px;
+}
+
+#ccNumber>input::placeholder {
+  font-size: 16px;
+  letter-spacing: 3px;
+}
+
+.form-group-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form-group-row>div:last-child {
+  width: 20%;
+}
+
+.form-group-row>#expirationMonth,
+.form-group-row>#expirationYear,
+.form-group-row>#province,
+.form-group-row>#city {
+  position: relative;
+  width: calc(40% - 12px);
+  margin-right: 12px;
+}
+
+.form-group-row>#country>div,
+.form-group-row>#installmentPlan>div {
+  position: relative;
+}
+
+.form-group-row>#expirationMonth>span:first-child,
+.form-group-row>#expirationYear>span:first-child,
+.form-group-row>#country>div>span:first-child,
+.form-group-row>#installmentPlan>div>span:first-child {
+  position: absolute;
+  right: 4px;
+  top: calc(50% - 9px);
+  font-size: 18px;
+}
+
+.form-group-row>#expirationMonth select,
+.form-group-row>#expirationYear select,
+.form-group-row>#country select,
+.form-group-row>#installmentPlan select {
+  padding-right: 24px;
+}
+
+.form-group-row>#expirationMonth option:not(:first-of-type),
+.form-group-row>#expirationYear option:not(:first-of-type),
+.form-group-row>#country option:not(:first-of-type),
+.form-group-row>#installmentPlan option:not(:first-of-type) {
+  color: #212529;
+}
+
+.form-group-row>#address,
+.form-group-row>#email {
+  width: calc(50% - 6px);
+  margin-right: 6px;
+}
+
+.form-group-row>#country,
+.form-group-row>#phone {
+  width: calc(50% - 6px);
+  margin-left: 6px;
+}
+
+.form-group-row>#redeemPoint {
+  width: calc(50% - 12px);
+  margin-right: 12px;
+}
+
+.form-group-row>#installmentPlan {
+  width: calc(50% - 12px);
+  margin-left: 12px;
+}
+
+.redeem-check {
+  display: flex;
+  align-items: center;
+}
+
+.price-details {
+  margin-bottom: 12px;
+  padding: 12px;
+  background-color: #e9f3ff;
+  border-radius: 2px;
+}
+
+.price-details>div {
+  display: flex;
+  align-items: center;
+}
+
+.price-details>div:first-child {
+  color: #06499f;
+  font-weight: 600;
+}
+
+.price-details>div>span:first-child {
+  flex-grow: 1;
+}
+
+.price-details>div>span {
+  font-size: 12px;
+}
+
+.price-details>div.total-price>span:last-child {
+  font-weight: 600;
+}
+
+.price-details>div.total-price>span:nth-child(2) {
+  color: #df1212;
+  margin-right: 3px;
+}
+
+.free-cost {
+  color: #0dcad3;
+  font-weight: 600;
+}
+
+.promo-code {
+  margin-bottom: 12px;
+}
+
+.promo-code>button,
+.pay-now>button {
+  width: 100%;
+  height: 35px;
+  padding: 0;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0dcad3;
+  font-weight: 600;
+  border: 2px dotted #0dcad3;
+  border-radius: 35px;
+}
+
+.pay-now>button {
+  width: 50%;
+  margin-left: 50%;
+  border: none;
+  border-radius: 35px;
+  background-color: #06499f;
+  color: #fff;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.pay-now>button:hover {
+  background-color: #063f89;
+}
+
+@media (max-width:767px) {
+  div:has(> #ccNumber) {
+    flex-direction: column;
+    align-items: unset;
+  }
+
+  #ccNumber {
+    margin-right: 0;
+    margin-bottom: 6px;
+  }
+
+  div:has(> #ccNumber)>div:last-child {
+    text-align: right;
+  }
+
+  .form-group-row>#redeemPoint {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 12px;
+  }
+
+  .form-group-row>#installmentPlan {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .redeem-check {
+    align-items: unset;
+    line-height: 10px;
+  }
+}

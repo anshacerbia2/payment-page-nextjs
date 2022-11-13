@@ -1,0 +1,194 @@
+.main {
+  padding: 30px 0;
+}
+
+.card-type {
+  width: 175px;
+  padding: 20px;
+  border-right: 1px solid #d3d3d3;
+}
+
+.card-type li {
+  margin-bottom: 12px;
+  color: #06499f;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.card-type li:last-child {
+  margin-bottom: 0;
+}
+
+.card-type li>a {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 2px;
+  color: inherit;
+  transition: color 0.2s ease-in-out;
+}
+
+.card-form {
+  width: calc(100% - 175px);
+  padding: 20px;
+}
+
+.card-form label,
+.card-form input {
+  width: 100%;
+}
+
+.card-form label {
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.card-form input,
+.card-form select {
+  border-radius: 30px;
+}
+
+.card-form input::placeholder {
+  color: rgb(163, 163, 163);
+}
+
+.booking-details {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.booking-details-title {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px dotted #c3c3c3;
+  font-weight: 600;
+}
+
+.booking-details-title>div:first-child {
+  flex-grow: 1;
+  color: #06499f;
+}
+
+.booking-details-title>a:last-child {
+  color: #0dcad3;
+  font-size: 12px;
+}
+
+.booking-passenger,
+.booking-flight {
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.booking-passenger>div:first-child,
+.booking-flight>div:first-child {
+  color: #686868;
+  font-weight: 600;
+}
+
+.passenger-details,
+.flight-schedule,
+.flight-date,
+.booking-price {
+  display: flex;
+  align-items: center;
+}
+
+.passenger-details>span,
+.flight-schedule>span,
+.flight-date>span,
+.booking-price>span {
+  color: #686868;
+  font-size: 12px;
+}
+
+.passenger-details>span:first-child,
+.booking-price>span:first-child {
+  flex-grow: 1;
+}
+
+.flight-schedule>span:first-child,
+.flight-date>span:first-child {
+  margin-right: 4px;
+}
+
+@media (min-width:992px) {
+  .card-type li:has(>a.active) {
+    color: #29c4d5 !important;
+  }
+
+  .card-type li>a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: #06499f;
+    transition: width 0.2s ease-in-out, backgroun-color 0.2s ease-in-out;
+  }
+
+  .card-type li>a.active::before,
+  .card-type li>a:hover::before {
+    width: 100%;
+    background-color: #29c4d5;
+  }
+
+  .card-type li>a:hover {
+    color: #29c4d5 !important;
+  }
+}
+
+@media (max-width:991px) {
+
+  .card-form,
+  .card-type {
+    width: calc(100%);
+  }
+
+  .card-type {
+    border-right: none;
+    border-bottom: 1px solid #d3d3d3;
+  }
+
+  .card-type>ul {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .card-type>ul>li {
+    width: 50%;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .card-type li>a {
+    position: relative;
+    display: block;
+    padding: 4px;
+    color: #fff;
+    background-color: #06499f;
+    border-radius: 2px;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  .card-type li>a.active {
+    background-color: #00b3f1 !important;
+  }
+
+  .card-type li:nth-child(odd)>a {
+    margin-right: 4px;
+  }
+
+  .card-type li:nth-child(even)>a {
+    margin-left: 4px;
+  }
+
+  .card-type a:hover {
+    background-color: #00b3f1;
+  }
+}
