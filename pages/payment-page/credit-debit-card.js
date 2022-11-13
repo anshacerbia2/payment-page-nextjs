@@ -9,7 +9,7 @@ import { getYear } from '../../helpers/getYear';
 import { phone_formater } from '../../helpers/phone_formater';
 import { swalWithBootstrapButtons } from '../../helpers/alert';
 
-export default function CreditCard({ countries, href }) {
+export default function CreditCard({ countries }) {
   // const countriesArr = countries.map(v => v.name.common);
   const countriesArr = ["Indonesia", "Singapore", 'Philippines'];
 
