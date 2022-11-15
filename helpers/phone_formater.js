@@ -1,7 +1,6 @@
 export const phone_formater = (value) => {
   const v = value
-    .replace(/\s+/g, "")
-    .replace(/[^0-9]/gi, "")
+    .replace(/[^0-9,.]+/gi, "")
     .substr(0, 12);
   const parts = [];
 

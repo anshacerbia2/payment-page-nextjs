@@ -5,9 +5,9 @@ import cardImg from '../../public/images/card-img.svg';
 import { useState } from 'react';
 import { cc_formater } from '../../helpers/cc_formater';
 import { getMonth } from '../../helpers/getMonth';
-import { getYear } from '../../helpers/getYear';
 import { phone_formater } from '../../helpers/phone_formater';
 import { swalWithBootstrapButtons } from '../../helpers/alert';
+import { exp_date_formater } from '../../helpers/exp_date_formater';
 
 export default function CreditCard({ countries }) {
   // const countriesArr = countries.map(v => v.name.common);
@@ -15,8 +15,7 @@ export default function CreditCard({ countries }) {
 
   const [inputVal, setInputVal] = useState({
     cardNumber: '',
-    expirationMonth: '',
-    expirationYear: '',
+    expirationDate: '',
     cvc: '',
     cardHolderName: '',
     address: '',
@@ -30,16 +29,28 @@ export default function CreditCard({ countries }) {
   });
   const [cardNumberErr, setCardNumberErr] = useState("");
   const [expDateErr, setExpDateErr] = useState("");
+  const [cvcErr, setCvcErr] = useState("");
   const [holderNameErr, setHolderNameErr] = useState("");
 
   const handleChange = (e) => {
     let name = e.target.name;
     let value = e.target.value;
-    if (name === "cardNumber" || name === "phone") value = value.replace(/\s/g, "");
+    console.log(value);
+    if (name === "cardNumber" || name === "phone") value = value.replace(/[^0-9,.]+/gi, "");
+    if (name === "expirationDate") {
+      value = value.replace(/[^0-9,.]+/gi, "");
+      const m = new Date().getMonth().toString();
+      const y = new Date().getFullYear().toString();
+      if ((+value.substring(0, 2) > 12 && value.length === 2) ||
+        (+value.substring(2, 4) < +y.substring(2, 4) && value.length === 4) ||
+        (+value.substring(2, 4) === +y.substring(2, 4) && +value.substring(0, 2) < +m && value.length === 4)
+      ) {
+        value = inputVal.expirationDate;
+      }
+    }
     if (name === "cvc") {
       value = value
-        .replace(/\s+/g, "")
-        .replace(/[^0-9]/gi, "")
+        .replace(/[^0-9,.]+/gi, "")
         .substring(0, 3);
     }
     setInputVal({ ...inputVal, [name]: value });
@@ -48,13 +59,13 @@ export default function CreditCard({ countries }) {
   const clearErr = () => {
     setCardNumberErr("");
     setExpDateErr("");
+    setCvcErr("");
     setHolderNameErr("");
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     let err = false;
-    let expErr = expDateErr;
 
     if (!inputVal.cardNumber.trim()) {
       setCardNumberErr("Card Number is Required.");
@@ -64,35 +75,35 @@ export default function CreditCard({ countries }) {
       setCardNumberErr("Card Number is Incorrect.");
       err = true;
     }
-    if (!inputVal.expirationMonth.trim()) {
-      expErr += " Expiration Month is Required.";
+    if (!inputVal.expirationDate.trim()) {
+      setExpDateErr("Expiration Date is Required.");
       err = true;
     }
-    if (!inputVal.expirationYear.trim()) {
-      expErr += " Expiration Year is Required.";
+    if (inputVal.expirationDate.trim() && inputVal.expirationDate.trim().length < 4) {
+      setExpDateErr("Expiration Date is Incorrect.");
       err = true;
     }
     if (!inputVal.cvc.trim()) {
-      expErr += " CVC is Required.";
+      setCvcErr("CVC is Required.");
       err = true;
     }
     if (inputVal.cvc.trim() && inputVal.cvc.trim().length < 3) {
-      expErr += " CVC is Incorrect.";
+      setCvcErr("CVC is Incorrect.");
       err = true;
     }
     if (!inputVal.cardHolderName.trim()) {
       setHolderNameErr("Card Holder Name is Required.");
       err = true;
     }
-    setExpDateErr(expErr);
 
     if (!err) {
-      console.log(inputVal);
+      const m = getMonth()[(+inputVal.expirationDate.substring(0, 2) - 1)];
+      console.log(m);
+      const y = `20${inputVal.expirationDate.substring(2, 4)}`;
       swalWithBootstrapButtons.fire({
         html: `
           <div>Card Number: ${inputVal.cardNumber}</div>
-          <div>Expiration Month: ${inputVal.expirationMonth}</div>
-          <div>Expiration Year: ${inputVal.expirationYear}</div>
+          <div>Expiration Date: ${m}, ${y}</div>
           <div>CVC: ${inputVal.cvc}</div>
           <div>Card Holder Name: ${inputVal.cardHolderName}</div>
           <div>Address: ${inputVal.address}</div>
@@ -109,8 +120,7 @@ export default function CreditCard({ countries }) {
       })
       setInputVal({
         cardNumber: '',
-        expirationMonth: '',
-        expirationYear: '',
+        expirationDate: '',
         cvc: '',
         cardHolderName: '',
         address: '',
@@ -172,75 +182,52 @@ export default function CreditCard({ countries }) {
           </div>
         </div>
       </div>
-      <div className="mb-3">
-        <div className={styles["form-group-row"]}>
-          <label style={{ width: '100%' }}>Expiration Date*</label>
-          <div className="form-group" id={styles.expirationMonth}>
-            <span className="material-symbols-outlined">
-              expand_more
-            </span>
-            <select
-              className="form-control"
-              style={inputVal.expirationMonth ? { color: "#000" } : { color: "rgb(163, 163, 163)" }}
-              placeholder="Month"
-              name="expirationMonth"
-              value={inputVal.expirationMonth}
-              onChange={handleChange}
-            >
-              <option disabled value="">Month</option>
-              {
-                getMonth().map((month, idx) => {
-                  return (
-                    <option key={month} value={month}>{month}</option>
-                  )
-                })
-              }
-            </select>
-          </div>
-          <div className="form-group" id={styles["expirationYear"]}>
-            <span className="material-symbols-outlined">
-              expand_more
-            </span>
-            <select
-              className="form-control"
-              style={inputVal.expirationYear ? { color: "#000" } : { color: "rgb(163, 163, 163)" }}
-              placeholder="Year"
-              name="expirationYear"
-              value={inputVal.expirationYear}
-              onChange={handleChange}
-            >
-              <option disabled value="">Year</option>
-              {
-                getYear().map((year, idx) => {
-                  return (
-                    <option key={year} value={year}>{year}</option>
-                  )
-                })
-              }
-            </select>
-          </div>
-          <div className="form-group">
-            <input
-              className="form-control"
-              type="tel"
-              maxLength="3"
-              placeholder="CVC"
-              name="cvc"
-              value={inputVal.cvc}
-              onChange={handleChange}
-            />
-          </div>
+
+      <div className={styles["form-group-row"] + " mb-3"}>
+        <div className="form-group" id={styles.expirationDate}>
+          <label>Expiration Date*</label>
+          <input
+            className="form-control flex-grow-1"
+            type="tel"
+            maxLength="7"
+            placeholder="••/••"
+            name="expirationDate"
+            value={exp_date_formater(inputVal.expirationDate)}
+            onChange={handleChange}
+          />
+          {
+            expDateErr && (
+              <div className="invalid-input">
+                <span className="material-icons-outlined">
+                  error_outline
+                </span>
+                {expDateErr.trim()}
+              </div>
+            )
+          }
         </div>
-        {
-          expDateErr && (
-            <div className="invalid-input">
-              <span className="material-icons-outlined">
-                error_outline
-              </span>
-              {expDateErr.trim()}
-            </div>
-          )
-        }
+        <div className="form-group" id={styles.cvc}>
+          <label>CVC*</label>
+          <input
+            className="form-control"
+            type="password"
+            maxLength="3"
+            placeholder="•••"
+            name="cvc"
+            value={inputVal.cvc}
+            onChange={handleChange}
+          />
+          {
+            cvcErr && (
+              <div className="invalid-input">
+                <span className="material-icons-outlined">
+                  error_outline
+                </span>
+                {cvcErr.trim()}
+              </div>
+            )
+          }
+        </div>
       </div>
       {/* BILLING INFORMATION */}
       <div className={styles["form-part-title"]}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../styles/PaymentLayout.module.css';
 import Head from 'next/head'
 import Link from 'next/link';
@@ -8,6 +8,17 @@ export default function PaymentLayout({ children }) {
   const router = useRouter();
   const paths = router.pathname.split('/');
   const path = paths[paths.length - 1];
+  let isOpen = false;
+  [
+    "bri-ceria",
+    "shopeepay",
+    "akulaku",
+    "indodana",
+    "kredivo",
+  ].forEach(v => {
+    if (v === path) isOpen = true;
+  })
+  const [subDropdown, setSubDropdown] = useState(isOpen);
 
   const cardTypes = [
     "Creadit / Debit Card",
@@ -17,7 +28,15 @@ export default function PaymentLayout({ children }) {
     "GoPay",
     "ATM",
     "BNI Mobile",
-    "ShopeePay",
+    [
+      "BRI Ceria",
+      "ShopeePay",
+      "Akulaku",
+      "Indodana",
+      "Kredivo",
+    ],
+    "OVO",
+    "Convenient Store",
     "Bank Transfer",
     "Alfamart",
     "Indomaret"
@@ -31,7 +50,15 @@ export default function PaymentLayout({ children }) {
     "gopay",
     "atm",
     "bni-mobile",
-    "shopeepay",
+    [
+      "bri-ceria",
+      "shopeepay",
+      "akulaku",
+      "indodana",
+      "kredivo",
+    ],
+    "ovo",
+    "convenient-store",
     "bank-transfer",
     "alfamart",
     "indomaret"
@@ -51,9 +78,29 @@ export default function PaymentLayout({ children }) {
                 <ul className="list-unstyled">
                   {
                     cardTypes.map((card, idx) => {
-                      return (
-                        <li key={`card-type${idx}`}><Link href={`/payment-page/${cardLinks[idx]}`} className={cardLinks[idx] === path ? styles["active"] : null}>{card}</Link></li>
-                      )
+                      if (typeof card === 'string') {
+                        return (
+                          <li key={`card-type${idx}`}><Link href={`/payment-page/${cardLinks[idx]}`} className={cardLinks[idx] === path ? styles["active"] : null}>{card}</Link></li>
+                        )
+                      } else {
+                        return (
+                          <ul className={styles["sub-dropdown"] + " list-unstyled" + (subDropdown ? " " + styles["active"] : "")}>
+                            <li onClick={() => setSubDropdown(!subDropdown)}>
+                              Buy Now Pay Later
+                              <span className="material-symbols-outlined">
+                                expand_more
+                              </span>
+                            </li>
+                            {
+                              card.map((v, i) => {
+                                return (
+                                  <li key={`card-type-bnpl${i}`}><Link href={`/payment-page/${cardLinks[idx][i]}`} className={cardLinks[idx][i] === path ? styles["active"] : null}>• {v}</Link></li>
+                                )
+                              })
+                            }
+                          </ul>
+                        )
+                      }
                     })
                   }
                 </ul>

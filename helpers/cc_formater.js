@@ -1,7 +1,6 @@
 export const cc_formater = (value) => {
   const v = value
-    .replace(/\s+/g, "")
-    .replace(/[^0-9]/gi, "")
+    .replace(/[^0-9,.]+/gi, "")
     .substr(0, 16);
   const parts = [];
 

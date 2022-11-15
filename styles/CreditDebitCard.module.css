@@ -33,7 +33,17 @@ div:has(> #ccNumber) {
   margin-right: 12px;
 }
 
-#ccNumber>input::placeholder {
+#expirationDate {
+  margin-right: 12px;
+}
+
+#cvc>input {
+  letter-spacing: 3px;
+}
+
+#expirationDate>input::placeholder,
+#ccNumber>input::placeholder,
+#cvc>input::placeholder {
   font-size: 16px;
   letter-spacing: 3px;
 }
@@ -47,8 +57,6 @@ div:has(> #ccNumber) {
   width: 20%;
 }
 
-.form-group-row>#expirationMonth,
-.form-group-row>#expirationYear,
 .form-group-row>#province,
 .form-group-row>#city {
   position: relative;
@@ -61,8 +69,6 @@ div:has(> #ccNumber) {
   position: relative;
 }
 
-.form-group-row>#expirationMonth>span:first-child,
-.form-group-row>#expirationYear>span:first-child,
 .form-group-row>#country>div>span:first-child,
 .form-group-row>#installmentPlan>div>span:first-child {
   position: absolute;
@@ -71,15 +77,11 @@ div:has(> #ccNumber) {
   font-size: 18px;
 }
 
-.form-group-row>#expirationMonth select,
-.form-group-row>#expirationYear select,
 .form-group-row>#country select,
 .form-group-row>#installmentPlan select {
   padding-right: 24px;
 }
 
-.form-group-row>#expirationMonth option:not(:first-of-type),
-.form-group-row>#expirationYear option:not(:first-of-type),
 .form-group-row>#country option:not(:first-of-type),
 .form-group-row>#installmentPlan option:not(:first-of-type) {
   color: #212529;
@@ -197,6 +199,15 @@ div:has(> #ccNumber) {
 
   div:has(> #ccNumber)>div:last-child {
     text-align: right;
+  }
+
+  #expirationDate {
+    flex: 1;
+  }
+
+  #cvc {
+    min-width: 100px;
+    width: 100px;
   }
 
   .form-group-row>#redeemPoint {
