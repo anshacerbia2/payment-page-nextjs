@@ -84,7 +84,7 @@ export default function PaymentLayout({ children }) {
                         )
                       } else {
                         return (
-                          <ul className={styles["sub-dropdown"] + " list-unstyled" + (subDropdown ? " " + styles["active"] : "")}>
+                          <ul key="subdropdown" className={styles["sub-dropdown"] + " list-unstyled" + (subDropdown ? " " + styles["active"] : "")}>
                             <li onClick={() => setSubDropdown(!subDropdown)}>
                               Buy Now Pay Later
                               <span className="material-symbols-outlined">
