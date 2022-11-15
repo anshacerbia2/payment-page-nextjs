@@ -149,10 +149,10 @@ export default function CreditCard({ countries }) {
       </div>
       <div className="form-group mb-2">
         <label>Card Number*</label>
-        <div className="d-flex">
+        <div>
           <div id={styles["ccNumber"]}>
             <input
-              className="form-control flex-grow-1"
+              className="form-control"
               type="tel"
               maxLength="19"
               placeholder="•••• •••• •••• ••••"
@@ -171,7 +171,7 @@ export default function CreditCard({ countries }) {
               )
             }
           </div>
-          <div>
+          <div style={{ textAlign: 'right' }}>
             <Image
               src={cardImg}
               layout="fixed"

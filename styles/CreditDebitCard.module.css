@@ -25,16 +25,21 @@
 }
 
 div:has(> #ccNumber) {
+  display: flex;
   align-items: center;
 }
 
 #ccNumber {
-  width: 100%;
+  flex-grow: 1;
   margin-right: 12px;
 }
 
 #expirationDate {
   margin-right: 12px;
+}
+
+#ccNumber>input {
+  width: 100%;
 }
 
 #cvc>input {
@@ -188,17 +193,12 @@ div:has(> #ccNumber) {
 
 @media (max-width:767px) {
   div:has(> #ccNumber) {
-    flex-direction: column;
-    align-items: unset;
+    display: block;
   }
 
   #ccNumber {
     margin-right: 0;
     margin-bottom: 6px;
-  }
-
-  div:has(> #ccNumber)>div:last-child {
-    text-align: right;
   }
 
   #expirationDate {
